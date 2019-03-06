@@ -18,6 +18,7 @@ using static System.Console;
 
 
 
+
 namespace Quick1
 {
     public partial class Form1 : Form
@@ -69,7 +70,6 @@ namespace Quick1
                 Japanese_txt = ofd.FileName;
             }
            
-
             //行数を配列の要素数にする。ほかに方法はないのか？？
             object[] body = new object[File.ReadAllLines(Japanese_txt).Length];
 
@@ -162,6 +162,10 @@ namespace Quick1
                 dynamic jarray = JsonConvert.DeserializeObject(jsonResponse);
 
 
+                // RootObject RO = JsonConvert.DeserializeObject<RootObject>(jsonResponse);
+
+
+
 
                 /*
                 foreach(var item in jarray[0]["translations"])
@@ -174,13 +178,23 @@ namespace Quick1
                 //https://kuroeveryday.blogspot.com/2014/04/convert-vs-parse-vs-tostring.html
                 //https://teratail.com/questions/56407
                 //http://japanese.sugawara-systems.com/systemverilog/dynamic_array.htm
+                //https://code.i-harness.com/ja-jp/q/2ff35f
 
+                string text1 = jarray[1]["text"];
 
-                foreach (var translations in jarray.tranlations)
+                foreach (var translations in jarray)
                 {
-                    foreach(var text in translations.text)
+                    foreach(var text in translations)
                     {
-                        string English_text = Convert.ToString(text);
+                        foreach (var text2 in text)
+                        {
+                            foreach(var text3 in text2)
+                            {
+                                string English_text = Convert.ToString(text3.text);
+                                MessageBox.Show(English_text);
+                                MessageBox.Show(Convert.ToString(text3.to));
+                            }
+                        }                                               
                     }
                     
                     //i++;
